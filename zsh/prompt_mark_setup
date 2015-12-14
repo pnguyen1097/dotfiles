@@ -1,0 +1,129 @@
+# Theme using Powerline icons
+#
+# Author: #   Mark Nguyen
+#
+pmodload 'helper'
+segment_separator() {
+  if [[ $current_bg != $bg ]]; then
+    if [[ $side == 'left' ]]; then
+      echo -n "%K{$bg}%F{$current_bg}$arrow"
+    else
+      echo -n "%K{${current_bg:-default}}%F{$bg}$arrow"
+    fi
+  else
+    echo -n "%{\e[02m%}$chevron%{\e[22m%}"
+  fi
+}
+segment() {
+  local fg=$1 bg=$2 content=$3
+  if [[ $current_bg != '' || $side == 'right' ]]; then
+    segment_separator
+  fi
+  [[ -n $content ]] && echo -n "%F{$fg}%K{$bg} $content%K{$bg} "
+  current_bg=$bg
+}
+segment_cap() {
+  echo -n "%F{$current_bg}%K{default}$arrow"
+}
+color_reset() {
+  echo -n "%F{default}%K{default}"
+}
+user_segment() {
+  local bgcolor=blue
+  [[ $UID == 0 || $EUID == 0 ]] && bgcolor=red
+  segment white $bgcolor '%B%n%b'
+}
+pwd_segment() {
+  local fgcolor=252 bgcolor=240
+  local dir_names
+  dir_names=(${(s./.)"${PWD/#$HOME/~}"})
+  local last_index=${#dir_names}
+  for i in {1..$last_index}; do
+    if [[ $i != $last_index ]]; then
+      segment $fgcolor $bgcolor $dir_names[$i]
+    else
+      fgcolor=white
+      segment $fgcolor $bgcolor "%B$dir_names[$i]%b"
+    fi
+  done
+}
+git_action_segment() {
+  local unmerged=$git_info[unmerged]
+  local action=$git_info[action]
+  local bgcolor=28
+  if [[ -n $unmerged ]]; then
+    segment white red $unmerged
+    bgcolor=yellow
+  fi
+  if [[ -n $action ]]; then
+    segment white $bgcolor $action
+  fi
+}
+git_branch_segment() {
+  local br_or_ci icon="\ue0a0" bgcolor=240
+  if [[ -n $git_info[modified] || -n $git_info[added] ]]; then
+    bgcolor=magenta
+  fi
+  if [[ -n $git_info[branch] ]]; then
+    br_or_ci=$git_info[branch]
+  else
+    br_or_ci=$git_info[commit]
+  fi
+  if [[ -n $br_or_ci ]]; then
+    segment white $bgcolor "$icon $br_or_ci"
+  fi
+}
+prompt_symbol() {
+  local fgcolor=5
+  [[ $UID == 0 || $EUID == 0 ]] && fgcolor=red
+  echo -n "%F{$fgcolor}%B\u2771%f%b "
+}
+build_lprompt() {
+  local arrow='\ue0b0' chevron='\ue0b1' current_bg='' side='left'
+  user_segment
+  pwd_segment
+  segment_cap
+  echo ""
+  prompt_symbol
+  color_reset
+}
+build_rprompt() {
+  local arrow='\ue0b2' chevron='\ue0b3' current_bg='' side='right'
+  git_action_segment
+  git_branch_segment
+}
+function prompt_mark_precmd {
+  git-info
+}
+function prompt_mark_setup {
+  setopt LOCAL_OPTIONS
+  unsetopt XTRACE KSH_ARRAYS
+  prompt_opts=(cr percent subst)
+  # Load required functions.
+  autoload -Uz add-zsh-hook
+  # Add hook for calling git-info before each command.
+  add-zsh-hook precmd prompt_mark_precmd
+  ZLE_RPROMPT_INDENT=0
+  # Set git-info parameters.
+  zstyle ':prezto:module:git:info' verbose 'yes'
+  zstyle ':prezto:module:git:info:action' format '%s'
+  zstyle ':prezto:module:git:info:added' format '%a'
+  zstyle ':prezto:module:git:info:branch' format '%b'
+  zstyle ':prezto:module:git:info:commit' format '%.7c'
+  zstyle ':prezto:module:git:info:modified' format '%m'
+  zstyle ':prezto:module:git:info:unmerged' format '%U'
+  zstyle ':prezto:module:git:info:keys' format \
+    'action' '%s' \
+    'added' '%a' \
+    'branch' '%b' \
+    'commit' '%c' \
+    'modified' '%m' \
+    'unmerged' '%U'
+  # Define prompts.
+  _line_up=$'\e[1A'
+  _line_down=$'\e[1B'
+  PROMPT='$(build_lprompt)'
+  #RPROMPT='%{${_line_up}%}${$(build_rprompt):- }%{${_line_down}%}'
+  RPROMPT='${$(build_rprompt):- }'
+}
+prompt_mark_setup "$@"

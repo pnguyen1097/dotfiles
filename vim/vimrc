@@ -1,0 +1,256 @@
+" vim: foldmethod=marker:foldlevel=0
+
+let $VIMHOME = expand('<sfile>:p:h')
+
+" Source functions file
+let functionsfile = $VIMHOME . "/functions.vim"
+if filereadable(expand(functionsfile))
+  exec "source " . functionsfile
+endif
+
+" Source plugins file
+let pluginsfile = $VIMHOME . "/plugins.vim"
+if filereadable(expand(pluginsfile))
+  exec "source " . pluginsfile
+endif
+
+scriptencoding utf-8
+
+" Basic {{{
+
+set nocompatible
+set title
+set whichwrap=b,s,h,l,<,>,[,]      " Let backspace, space, and arrow keys move to the next/previous line
+set shortmess+=filmnrxoOtT         " Make messages shorter
+set showmode
+set sh=/bin/zsh
+set encoding=utf-8
+
+                                   " Searching
+set incsearch                      " Find as you type search
+set ignorecase                     " Case insensitive search
+set smartcase                      " Case sensitive when upper case present
+
+                                   " Display
+set scrolloff=3                    " Minimum lines to keep above and below cursor
+set nowrap                         " Do not wrap long lines
+set fillchars=vert:│,fold: ,diff:─ " Character used to display split, fold, and
+set list                           " Display special characters
+set listchars=tab:›\ ,trail:•,nbsp:.,extends:❯,precedes:❮
+set number                         " Line numbers on
+
+                                   " Windows
+set laststatus=2                   " Always show the status line
+set hidden                         " When switching buffer, makes the current buffer hidden instead of unloading
+set splitright                     " Puts new vsplit windows to the right of the current
+set splitbelow                     " Puts new split windows to the bottom of the current
+set winminheight=0                 " Windows can be 0 line high
+
+set undolevels=1000
+set undoreload=10000               " Maximum number lines to save for undo
+set showmatch                      " Show matching brackets/parenthesis
+set nojoinspaces                   " Prevents inserting two spaces after punctuation on a join (J)
+set nrformats-=octal               " Allow increment/decrement of number with leading zero
+
+set tabstop=2                      " Number of columns that represent tab stop
+set shiftwidth=2                   " Number of columns in each level for autoident
+set smarttab                       " Makes tab indent the same numbers of spaces as shiftwidth
+set softtabstop=2                  " Number of columns that is added when inserting tab
+set shiftround                     " Round ">" and "<" to multiples of shiftwidth
+set expandtab                      " Use spaces instead of tabs
+set autoindent                     " New line start at the same level of indentation
+set nosmartindent                  " Let filetype indent handle smart indent
+
+set foldenable
+set foldlevelstart=1
+set foldmethod=syntax
+set foldcolumn=1
+set foldtext=ShortFoldText()
+set foldnestmax=2
+
+set history=1000                   " Store lots of command lines history
+set wildmode=list:longest,full     " Complete to the longest match on the first tab, then show menu on the second.
+set wildmenu
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc
+set wildignorecase
+
+" }}}
+
+" Color & Syntax Highlighting {{{
+set background=dark
+filetype plugin indent on
+syntax on
+
+silent! color solarized
+
+highlight clear SignColumn " Remove background
+highlight clear VertSplit  " Remove backgorund
+set hlsearch               " Highlight search terms
+set colorcolumn=80         " Hightlight column 80 for manual wrapping
+
+" Highlight listchars red
+highlight SpecialKey ctermfg=darkred guifg=darkred ctermbg=NONE guibg=NONE
+
+" }}}
+
+" GUI {{{
+set mouse=a
+set mousehide
+
+if has('gui_running')
+  set gfn=Source\ Code\ Pro\ for\ Powerline\ 10
+  set guioptions-=T " Remove toolbar
+  set guioptions-=m " Remove menu bar
+  set guioptions-=R " Remove right scrollbar
+  set guioptions-=L " Remove left scrollbar
+  set linespace=0   " No extra spaces between rows
+endif
+
+" }}}
+
+" Temp files {{{
+let tmpprefix = $VIMHOME . '/tmp'
+let backupdir = tmpprefix . '/backup/'
+let swapdir = tmpprefix . '/swap/'
+let undodir = tmpprefix. '/undo/'
+let viewdir = tmpprefix. '/views/'
+
+silent! call mkdir(backupdir, 'p')
+silent! call mkdir(swapdir, 'p')
+silent! call mkdir(undodir, 'p')
+silent! call mkdir(viewdir)
+
+set backup " Keep backup files
+let &backupdir=backupdir. '/'
+
+let &directory=swapdir . '/'
+
+set undofile
+let &undodir=undodir . '/'
+
+set viewoptions=folds,options,cursor,unix,slash
+let &viewdir=viewdir . '/'
+" }}}
+
+" Key mappings {{{
+
+" Remove search highlight
+nmap <silent> <leader><leader> :nohl<CR>
+
+" Visual shifting that does not exit Visual mode
+vnoremap < <gv
+vnoremap > >gv
+
+" Split line with Ctrl+J
+nmap <C-J>  i<CR><Esc>
+
+" Save with sudo
+cmap W w !sudo tee % >/dev/null
+" }}}
+
+" vim-smooth-scroll {{{
+  nnoremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+  nnoremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
+  nnoremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+  nnoremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+" }}}
+
+" vim-rspec {{{
+  map <Leader>t :call RunCurrentSpecFile()<CR>
+  map <Leader>s :call RunNearestSpec()<CR>
+  map <Leader>l :call RunLastSpec()<CR>
+  map <Leader>a :call RunAllSpecs()<CR>
+
+  let g:rspec_command = 'SlimuxShellRun clear && rspec {spec}'
+" }}}
+
+" Unite config {{{
+
+" Unite prefix
+nmap <Space> [unite]
+
+" Binding for opening file
+noremap <silent> <C-p> :<C-u>Unite -complete -buffer-name=files -start-insert file_rec/async:!<CR>
+"Binding for selecting buffer
+noremap <silent> [unite]b :<C-u>Unite -buffer-name=buffers buffer<CR>
+" Binding for searching. Autopreview seems to be buggy, so not using it here.
+noremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=grep -vertical-preview grep:.<CR>
+
+" Fuzzy matching for everything
+call unite#custom#source('file_rec,file_rec/async', 'matchers', ['matcher_fuzzy'])
+call unite#custom#source('file_rec,file_rec/async', 'sorters', ['sorter_selecta'])
+
+" Configure grep source to use ag.
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts =
+        \ '-i --vimgrep --hidden --ignore ''.git'''
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+" Configure file_rec/async to also use ag
+let g:unite_source_rec_async_command =
+      \ ['ag', '--follow', '--nocolor', '--nogroup',
+      \  '--hidden', '-g', '']
+
+" Keybindgs for unite window.
+autocmd FileType unite call s:unite_settings()
+function! s:unite_settings()
+  imap <silent><buffer> <C-c> <Plug>(unite_insert_leave)
+  nnoremap <buffer><expr> V unite#do_action('vsplit')
+  nnoremap <buffer><expr> S unite#do_action('split')
+  nnoremap <buffer><expr> P unite#do_action('preview')
+endfunction
+
+" }}}
+
+" vim-ruby {{{
+  let g:rubycomplete_buffer_loading = 1
+  let g:rubycomplete_classes_in_global = 1
+  let g:rubycomplete_rails = 1
+  let g:rubycomplete_load_gemfile = 1
+" }}}
+
+" Focus mode {{{
+  let g:focus_use_default_mapping = 0
+  nmap  <leader>f<space> <Plug>FocusModeToggle
+" }}}
+
+" Syntastic {{{
+  let g:syntastic_error_symbol = '✖'
+  let g:syntastic_warning_symbol = '⚠'
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_auto_jump = 1
+  let g:syntastic_javascript_syntax_checker="jshint"
+" }}}
+
+" vim-airline {{{
+  let g:airline_powerline_fonts = 1
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
+" }}}
+
+" Calendar {{{
+  let g:calendar_google_calendar = 1
+  let g:calendar_google_task = 1
+  let g:calendar_frame = 'unicode_round'
+" }}}
+
+" Pandoc {{{
+  let g:pandoc#syntax#conceal#blacklist = ["codeblock_start", "codeblock_delim"]
+" }}}
+
+" YouCompleteMe {{{
+  let g:ycm_server_keep_logfiles = 1
+  let g:ycm_server_log_level = 'debug'
+" }}}
+
+" EasyAlign {{{
+  nmap ga <Plug>(LiveEasyAlign)
+  xmap ga <Plug>(LiveEasyAlign)
+" }}}
+
+" vim-gitgutter {{{
+let g:gitgutter_realtime = 100
+let g:gitgutter_eager = 100
+" }}}

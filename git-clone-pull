@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+
+# Clone a project if it has not been cloned. Otherwise, pull it.
+# Usage
+# git-clone 'https://....' ~/.zprezto
+SRC=$1
+DEST=$2
+if [ -d "$DEST" ]; then
+  git -C "$2" pull
+  git -C "$2" submodule update --init --recursive
+else
+  mkdir -p "$2"
+  git clone "$1" "$2" --recursive
+fi

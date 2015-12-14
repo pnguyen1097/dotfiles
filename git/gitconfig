@@ -1,0 +1,17 @@
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	st = status
+	ci = commit
+	co = checkout
+	br = branch
+	unstage = reset HEAD
+	undo = reset --soft HEAD~1
+  wdiff = diff --color-words
+[color]
+	ui = true
+[push]
+	default = simple
+[core]
+	autocrlf = input
+[include]
+  path = ~/.gitconfig.local

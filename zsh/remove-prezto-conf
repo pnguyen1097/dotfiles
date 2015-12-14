@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  path="${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  if [ -e  "$path" ]; then
+    rm "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  fi
+done
