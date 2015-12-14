@@ -1,9 +1,9 @@
-main-group=fonts git tmux zsh vim
-optional-group=rvm
+main-group=git tmux zsh vim
+optional-group=rvm fonts
 
 install: ${main-group}
 
-clean: fonts-clean git-clean tmux-clean zsh-clean vim-clean rvm-clean nvm-clean
+clean: git-clean tmux-clean zsh-clean vim-clean fonts-clean rvm-clean nvm-clean
 
 .PHONY: ${main-group} ${optional-group}
 
@@ -12,14 +12,6 @@ tmux:
 
 tmux-clean:
 	rm -f ~/.tmux.conf
-
-fonts:
-	`pwd`/git-clone-pull 'https://github.com/powerline/fonts.git' ~/.local/share/fonts/powerline
-	fc-cache
-
-fonts-clean:
-	rm -Rf ~/.local/share/fonts/powerline
-	fc-cache
 
 git:
 	ln -sf `pwd`/git/gitconfig ~/.gitconfig
@@ -57,6 +49,14 @@ zsh-clean:
 	rm -Rf ~/.zprezto
 
 # Optional items that are not installed by default.
+
+fonts:
+	`pwd`/git-clone-pull 'https://github.com/powerline/fonts.git' ~/.local/share/fonts/powerline
+	fc-cache
+
+fonts-clean:
+	rm -Rf ~/.local/share/fonts/powerline
+	fc-cache
 
 rvm:
 	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
