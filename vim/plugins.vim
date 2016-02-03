@@ -29,7 +29,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomtom/tcomment_vim'
 Plug 'scrooloose/syntastic'
 Plug 'junegunn/vim-easy-align'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'merlinrebrovic/focus.vim'
 Plug 'terryma/vim-smooth-scroll'
 Plug 'moll/vim-bbye' " Delete buffer without messing the window layout.
