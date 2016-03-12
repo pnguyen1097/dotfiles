@@ -1,5 +1,5 @@
 main-group=git tmux zsh vim
-optional-group=rvm fonts
+optional-group=rvm fonts nvm rbenv
 
 install: ${main-group}
 
@@ -73,3 +73,7 @@ nvm:
 
 nvm-clean:
 	rm -Rf ~/.nvm
+
+rbenv:
+	`pwd`/git-clone-pull 'https://github.com/rbenv/rbenv.git' ~/.rbenv
+	`pwd`/git-clone-pull 'https://github.com/rbenv/ruby-build.git' ~/.rbenv/plugins/ruby-build
