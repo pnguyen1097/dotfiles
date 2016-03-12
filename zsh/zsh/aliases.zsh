@@ -22,4 +22,11 @@ alias ls='ls --group-directories-first --human-readable --color=auto --classify'
 alias l="$aliases[ls]"
 alias ll="$aliases[ls] -l"
 alias la="$aliases[ll] -a"
+
+function docker-harvest {
+  docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}")
+}
+
 alias fig='docker-compose'
+alias figdie='fig stop && fig rm -f'
+alias figreload='figdie && fig build && fig up -d'
