@@ -60,7 +60,7 @@ git_action_segment() {
   fi
 }
 git_branch_segment() {
-  local br_or_ci icon="\ue0a0" bgcolor=240
+  local br_or_ci icon="\uf402" bgcolor=240
   if [[ -n $git_info[modified] || -n $git_info[added] ]]; then
     bgcolor=magenta
   fi
@@ -74,9 +74,21 @@ git_branch_segment() {
   fi
 }
 prompt_symbol() {
+
   local fgcolor=5
+  local arrow
   [[ $UID == 0 || $EUID == 0 ]] && fgcolor=red
-  echo -n "%F{$fgcolor}%B\u2771%f%b "
+  case $editor_info[keymap] in
+    'primary')
+      arrow='%F{5}%B\uf054%f%b'
+      ;;
+    'alternate')
+      arrow='%F{172}%B\uf053%f%b'
+      ;;
+    *)
+  esac
+
+  echo -n "$arrow "
 }
 build_lprompt() {
   local arrow='\ue0b0' chevron='\ue0b1' current_bg='' side='left'
@@ -104,6 +116,13 @@ function prompt_mark_setup {
   # Add hook for calling git-info before each command.
   add-zsh-hook precmd prompt_mark_precmd
   ZLE_RPROMPT_INDENT=0
+
+  zstyle ':prezto:module:editor:info:keymap:primary' format "primary"
+  zstyle ':prezto:module:editor:info:keymap:primary:insert' format 'insert'
+  zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format 'overwrite'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format 'alternate'
+  zstyle ':prezto:module:editor:info:completing' format '...'
+
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:action' format '%s'

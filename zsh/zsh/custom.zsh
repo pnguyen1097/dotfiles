@@ -2,6 +2,7 @@
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
+export KEYTIMEOUT=1
 
 # Correct commands.
 setopt CORRECT

@@ -2,7 +2,7 @@
 
 # Clone a project if it has not been cloned. Otherwise, pull it.
 # Usage
-# git-clone 'https://....' ~/.zprezto
+# git-clone-pull 'https://....' ~/.zprezto
 SRC=$1
 DEST=$2
 if [ -d "$DEST" ]; then
