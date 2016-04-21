@@ -51,11 +51,11 @@ zsh-clean:
 # Optional items that are not installed by default.
 
 fonts:
-	`pwd`/git-clone-pull 'https://github.com/powerline/fonts.git' ~/.local/share/fonts/powerline
+	`pwd`/get-nerd-fonts ~/.local/share/fonts/nerd-fonts
 	fc-cache
 
 fonts-clean:
-	rm -Rf ~/.local/share/fonts/powerline
+	rm -Rf ~/.local/share/fonts/nerd-fonts
 	fc-cache
 
 rvm:

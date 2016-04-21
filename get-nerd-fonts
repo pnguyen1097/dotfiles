@@ -1,0 +1,16 @@
+#!/usr/bin/env sh
+
+# Install nerd-fonts
+# Usage
+# get-nerd-fonts ~/.local/share/fonts/nerd-fonts/
+target_dir=$1
+
+sources=(
+  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/FiraCode/Regular/complete/Fura%20Code%20Regular%20Nerd%20Font%20Complete.otf
+  https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/SourceCodePro/Regular/complete/Sauce%20Code%20Pro%20Nerd%20Font%20Complete%20Mono.ttf
+)
+
+for ((i=0; i < ${#sources[@]}; i++))
+do
+  wget -P $target_dir ${sources[$i]}
+done
