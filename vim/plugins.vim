@@ -50,6 +50,7 @@ Plug 'tpope/vim-endwise'
 " Unite.vim
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimfiler.vim'
 
 " Google Calendar in Vim
 Plug 'itchyny/calendar.vim'
