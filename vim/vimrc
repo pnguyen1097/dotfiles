@@ -91,6 +91,10 @@ set colorcolumn=80         " Hightlight column 80 for manual wrapping
 " Highlight listchars red
 highlight SpecialKey ctermfg=darkred guifg=darkred ctermbg=NONE guibg=NONE
 
+" Highlight non-ASCII characters
+highlight nonascii guibg=Red ctermbg=1 term=standout
+au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
+
 " }}}
 
 " GUI {{{
