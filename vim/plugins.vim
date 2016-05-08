@@ -64,10 +64,16 @@ Plug 'altercation/vim-colors-solarized'
 " Language support
 Plug 'sheerun/vim-polyglot'
 
+Plug 'Chiel92/vim-autoformat'
+
+
 " Ruby
 Plug 'tpope/vim-rvm'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-rake'
+
+" LaTeX
+Plug 'lervag/vimtex'
 
 " Matlab
 Plug 'vim-scripts/MatlabFilesEdition'
@@ -75,6 +81,11 @@ Plug 'vim-scripts/MatlabFilesEdition'
 " Markdown
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+" Haskell
+Plug 'dag/vim2hs'
+Plug 'eagletmt/neco-ghc', { 'for': 'haskell' }
+Plug 'bitc/vim-hdevtools', { 'for': 'haskell' }
 
 " HexMode
 Plug 'fidian/hexmode'

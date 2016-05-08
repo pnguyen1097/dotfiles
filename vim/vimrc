@@ -253,6 +253,25 @@ endfunction
 " YouCompleteMe {{{
   let g:ycm_server_keep_logfiles = 1
   let g:ycm_server_log_level = 'debug'
+
+  " For neco-ghc
+  let g:ycm_semantic_triggers = {'haskell' : ['.']}
+  autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+" }}}
+
+" NecoGHC {{{
+
+  " Disable haskell-vim omnifunc
+  let g:haskellmode_completion_ghc = 0
+  let g:necoghc_enable_detailed_browse = 1
+
+" }}}
+
+" Hdevtools {{{
+
+  au FileType haskell nnoremap <buffer> gi :HdevtoolsType<CR>
+  au FileType haskell nnoremap <buffer> <silent> gic :HdevtoolsClear<CR>
+
 " }}}
 
 " EasyAlign {{{
