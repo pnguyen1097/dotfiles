@@ -41,6 +41,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/restore_view.vim'
 
 " Automatically insert closing quotes, brackets, etc.
@@ -62,10 +63,13 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'altercation/vim-colors-solarized'
 
 " Language support
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 Plug 'Chiel92/vim-autoformat'
 
+" JavaScript
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 " Ruby
 Plug 'tpope/vim-rvm'

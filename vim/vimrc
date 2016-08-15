@@ -149,7 +149,7 @@ vnoremap > >gv
 nmap <C-J>  i<CR><Esc>
 
 " Save with sudo
-cmap W w !sudo tee % >/dev/null
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 " }}}
 
 " vim-smooth-scroll {{{
@@ -221,6 +221,10 @@ endfunction
   let g:rubycomplete_load_gemfile = 1
 " }}}
 
+" vim-javascript {{{
+  let g:jsx_ext_required = 0
+" }}}
+
 " Focus mode {{{
   let g:focus_use_default_mapping = 0
   nmap  <leader>f<space> <Plug>FocusModeToggle
@@ -230,8 +234,16 @@ endfunction
   let g:syntastic_error_symbol = '✖'
   let g:syntastic_warning_symbol = '⚠'
   let g:syntastic_auto_loc_list = 1
-  let g:syntastic_auto_jump = 1
-  let g:syntastic_javascript_syntax_checker="jshint"
+  " let g:syntastic_auto_jump = 1
+
+  let g:syntastic_javascript_checkers=["eslint", "jshint"]
+  let g:syntastic_javascript_eslint_exec="eslint_d"
+
+  let g:syntastic_scss_sass_quiet_messages = {
+      \ "!level":  "errors",
+      \ "type":    "style",
+      \ "regex":   'File to import not found or unreadable',
+      \ "file:p":  [] }
 " }}}
 
 " vim-airline {{{
