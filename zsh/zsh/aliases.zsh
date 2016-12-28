@@ -28,5 +28,5 @@ function docker-harvest {
 }
 
 alias fig='docker-compose'
-alias figdie='fig stop && fig rm -f'
+alias figdie='fig stop && fig rm -f --all'
 alias figreload='figdie && fig build && fig up -d'
