@@ -28,6 +28,7 @@ call plug#begin('~/.vim/plugged')
 " Utilities
 Plug 'tomtom/tcomment_vim'
 Plug 'scrooloose/syntastic'
+Plug 'mtscout6/syntastic-local-eslint.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
