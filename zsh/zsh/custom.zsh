@@ -21,3 +21,23 @@ if [[ -s "$HOME/.rbenv" ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
 fi
+
+if [[ -s "$HOME/.cabal/bin" ]]; then
+  export PATH="$PATH:~/.cabal/bin:.cabal-sandbox/bin"
+fi
+
+if [[ -s "$HOME/.local/bin" ]]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+export DOCKER_HOST_IP=172.17.0.1
+
+export EVENT_NOEPOLL=1
+
+if [[ -s "$HOME/Android/Sdk" ]]; then
+  export ANDROID_HOME=~/Android/Sdk
+  export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
+fi
+
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+eval "$(pyenv virtualenv-init -)"
