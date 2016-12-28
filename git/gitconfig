@@ -1,5 +1,5 @@
 [alias]
-	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date='format:%a, %m-%d %I:%M%P'
 	st = status
 	ci = commit
 	co = checkout
@@ -18,3 +18,5 @@
 	autocrlf = input
 [include]
   path = ~/.gitconfig.local
+[commit]
+	verbose = true
