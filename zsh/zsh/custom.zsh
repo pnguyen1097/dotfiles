@@ -41,3 +41,9 @@ fi
 
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(pyenv virtualenv-init -)"
+
+autojump="/etc/profile.d/autojump.sh";
+
+if [[ -s $autojump ]]; then
+  source $autojump
+fi
