@@ -33,6 +33,14 @@ user_segment() {
   [[ $UID == 0 || $EUID == 0 ]] && bgcolor=red
   segment white $bgcolor '%B%n%b'
 }
+
+pipenv_segment() {
+  local bgcolor=red
+  if [[ "$PIPENV_ACTIVE" == "1" ]]; then
+    segment white $bgcolor "\ue606"
+  fi
+}
+
 pwd_segment() {
   local fgcolor=252 bgcolor=240
   local dir_names
@@ -75,12 +83,12 @@ git_branch_segment() {
 }
 prompt_symbol() {
 
-  local fgcolor=5
+  local fgcolor=4
   local arrow
   [[ $UID == 0 || $EUID == 0 ]] && fgcolor=red
   case $editor_info[keymap] in
     'primary')
-      arrow='%F{5}%B\uf054%f%b'
+      arrow='%F{4}%B\uf054%f%b'
       ;;
     'alternate')
       arrow='%F{172}%B\uf053%f%b'
@@ -92,6 +100,7 @@ prompt_symbol() {
 }
 build_lprompt() {
   local arrow='\ue0b0' chevron='\ue0b1' current_bg='' side='left'
+  pipenv_segment
   user_segment
   pwd_segment
   segment_cap
@@ -104,6 +113,7 @@ build_rprompt() {
   git_action_segment
   git_branch_segment
 }
+
 function prompt_mark_precmd {
   git-info
 }

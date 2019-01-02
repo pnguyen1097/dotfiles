@@ -17,3 +17,12 @@ export PATH="/usr/local/heroku/bin:$PATH"
 # Load custom
 source ~/.zsh/custom.zsh
 source ~/.zsh/aliases.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /home/mark/taivara/shuffle-backend/node_modules/tabtab/.completions/serverless.zsh ]] && . /home/mark/taivara/shuffle-backend/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /home/mark/taivara/shuffle-backend/node_modules/tabtab/.completions/sls.zsh ]] && . /home/mark/taivara/shuffle-backend/node_modules/tabtab/.completions/sls.zsh

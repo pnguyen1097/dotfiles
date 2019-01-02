@@ -1,8 +1,12 @@
 # Editor
+# export TERM=xterm-termite
 export EDITOR='vim'
 export VISUAL='vim'
 export PAGER='less'
 export KEYTIMEOUT=1
+export LYEDITOR='nvr  --remote %(file)s --remote-send "%(line)sG%(column)s|"'
+# export LYEDITOR='nvr --remote'
+# export LYEDITOR='nvr --remote %(file) -c %(line)'
 
 # Correct commands.
 setopt CORRECT
@@ -20,6 +24,10 @@ fi
 if [[ -s "$HOME/.rbenv" ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
   eval "$(rbenv init -)"
+fi
+
+if [[ -s "$HOME/.lyp" ]]; then
+  export PATH="$HOME/.lyp/bin:$PATH"
 fi
 
 if [[ -s "$HOME/.cabal/bin" ]]; then
@@ -46,4 +54,8 @@ autojump="/etc/profile.d/autojump.sh";
 
 if [[ -s $autojump ]]; then
   source $autojump
+fi
+
+if [ -x $(which fasd) ]; then
+  eval "$(fasd --init auto)"
 fi
