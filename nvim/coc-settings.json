@@ -1,0 +1,13 @@
+{
+  "coc.preferences.jumpCommand": "vsplit",
+  "suggest.echodocSupport": true,
+  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "tsserver.log": "verbose",
+  "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
+  "solargraph.hover": true,
+  "solargraph.definitions": true,
+  "solargraph.diagnostics": true,
+  "solargraph.symbols": true,
+  "solargraph.completion": true,
+  "solargraph.formatting": true
+}

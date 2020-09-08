@@ -1,0 +1,4 @@
+.netrwhist
+node_modules
+plugged
+autoload/plug.vim*

@@ -1,4 +1,4 @@
-main-group=git tmux zsh vim
+main-group=git tmux zsh vim nvim
 optional-group=i3 fonts nvm rbenv
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
@@ -35,6 +35,13 @@ vim-clean:
 	rm -Rf ~/.vim/functions.vim
 	rm -Rf ~/.vim/plugins.vim
 	rm -Rf ~/.vim/vimrc
+
+nvim:
+	ln -sf `pwd`/nvim $(XDG_CONFIG_HOME)/nvim
+	nvim +PlugInstall +qall -u $(XDG_CONFIG_HOME)/nvim/plugins.vim
+
+nvim-clean:
+	rm -rf $(XDG_CONFIG_HOME)/nvim
 
 zsh:
 	`pwd`/git-clone-pull 'https://github.com/sorin-ionescu/prezto/' ~/.zprezto

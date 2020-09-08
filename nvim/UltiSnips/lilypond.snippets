@@ -1,0 +1,32 @@
+snippet section "section = \relative "
+${1:section} = \relative c'' {
+	\mark \default
+	\repeat unfold 8 { r1 }
+	\bar "||"
+}
+
+${1}Chords = \chordmode {
+}
+endsnippet
+
+snippet chorus "chorus = \relative "
+chorus${1} = \relative c'' {
+	\mark \default
+	\repeat unfold 8 { r1 }
+	\bar "||"
+}
+
+chorus${1}Chords = \chordmode {
+}
+endsnippet
+
+snippet chorus "outtro = \relative "
+${1:outtro} = \relative c'' {
+	\mark \default
+	\repeat unfold 8 { r1 }
+	\bar "||"
+}
+
+${1:outtro}Chords = \chordmode {
+}
+endsnippet
