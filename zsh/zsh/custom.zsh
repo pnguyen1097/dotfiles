@@ -20,6 +20,9 @@ if is-callable 'dircolors'; then
   fi
 fi
 
+export FZF_CTRL_T_OPTS="--preview '(highlight -O ansi -l {} 2> /dev/null || cat {} || tree -C {}) 2> /dev/null | head -200'"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='fd --type f'
 
 if [[ -s "$HOME/.rbenv" ]]; then
   export PATH="$HOME/.rbenv/bin:$PATH"
@@ -47,6 +50,10 @@ if [[ -s "$HOME/Android/Sdk" ]]; then
   export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
 fi
 
+if type yarn > /dev/null; then
+  export PATH="$(yarn global bin):$PATH"
+fi
+
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 eval "$(pyenv virtualenv-init -)"
 
@@ -59,3 +66,7 @@ fi
 if [ -x $(which fasd) ]; then
   eval "$(fasd --init auto)"
 fi
+
+# ASDF runtime versions manager
+source $HOME/.asdf/asdf.sh
+source $HOME/.asdf/completions/asdf.bash
