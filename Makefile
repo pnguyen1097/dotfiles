@@ -1,9 +1,11 @@
 main-group=git tmux zsh vim
-optional-group=rvm fonts nvm rbenv
+optional-group=fonts nvm rbenv
+
+XDG_CONFIG_HOME ?= $(HOME)/.config
 
 install: ${main-group}
 
-clean: git-clean tmux-clean zsh-clean vim-clean fonts-clean rvm-clean nvm-clean
+clean: git-clean tmux-clean zsh-clean vim-clean fonts-clean nvm-clean
 
 .PHONY: ${main-group} ${optional-group}
 
@@ -57,15 +59,6 @@ fonts:
 fonts-clean:
 	rm -Rf ~/.local/share/fonts/nerd-fonts
 	fc-cache
-
-rvm:
-	gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
-	ln -sf `pwd`/rvm/rvmrc ~/.rvmrc
-	\curl -sSL https://get.rvm.io | bash -s stable
-
-rvm-clean:
-	rm -Rf ~/.rvm
-	rm -f ~/.rvmrc
 
 nvm:
 	`pwd`/git-clone-pull 'https://github.com/creationix/nvm' ~/.nvm
