@@ -1,5 +1,5 @@
 main-group=git tmux zsh vim
-optional-group=fonts nvm rbenv
+optional-group=i3 fonts nvm rbenv
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
@@ -59,6 +59,12 @@ fonts:
 fonts-clean:
 	rm -Rf ~/.local/share/fonts/nerd-fonts
 	fc-cache
+
+i3:
+	ln -sf `pwd`/i3 $(XDG_CONFIG_HOME)/i3
+
+i3-clean:
+	rm -Rf $(XDG_CONFIG_HOME)/i3
 
 nvm:
 	`pwd`/git-clone-pull 'https://github.com/creationix/nvm' ~/.nvm
