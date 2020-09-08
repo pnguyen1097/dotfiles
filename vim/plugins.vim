@@ -10,10 +10,14 @@ function! BuildYCM(info)
   endif
 
   if executable('python2')
-    silent !python2 ./install.py --clang-completer
+    silent !python2 ./install.py --clang-completer --tern-completer
   else
-    silent !./install.py --clang-completer
+    silent !./install.py --clang-completer --tern-completer
   endif
+endfunction
+
+function! InstallTern(info)
+  silent !npm install
 endfunction
 
 
@@ -45,6 +49,12 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/restore_view.vim'
 
+Plug 'takac/vim-hardtime'
+
+" Testing
+Plug 'epeli/slimux'
+Plug 'janko-m/vim-test'
+
 " Automatically insert closing quotes, brackets, etc.
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
@@ -71,6 +81,7 @@ Plug 'Chiel92/vim-autoformat'
 " JavaScript
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
+Plug 'ternjs/tern_for_vim', { 'do': function('InstallTern') }
 
 " Ruby
 Plug 'tpope/vim-rvm'

@@ -26,12 +26,12 @@ set showmode
 set sh=/bin/zsh
 set encoding=utf-8
 
-                                   " Searching
+" Searching
 set incsearch                      " Find as you type search
 set ignorecase                     " Case insensitive search
 set smartcase                      " Case sensitive when upper case present
 
-                                   " Display
+" Display
 set scrolloff=3                    " Minimum lines to keep above and below cursor
 set nowrap                         " Do not wrap long lines
 set fillchars=vert:│,fold: ,diff:─ " Character used to display split, fold, and
@@ -39,7 +39,7 @@ set list                           " Display special characters
 set listchars=tab:›\ ,trail:•,nbsp:.,extends:❯,precedes:❮
 set number                         " Line numbers on
 
-                                   " Windows
+" Windows
 set laststatus=2                   " Always show the status line
 set hidden                         " When switching buffer, makes the current buffer hidden instead of unloading
 set splitright                     " Puts new vsplit windows to the right of the current
