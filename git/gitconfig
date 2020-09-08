@@ -20,3 +20,5 @@
   path = ~/.gitconfig.local
 [commit]
 	verbose = true
+[diff]
+	algorithm = histogram
