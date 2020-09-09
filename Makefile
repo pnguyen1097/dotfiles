@@ -1,5 +1,5 @@
 main-group=git tmux zsh vim nvim
-optional-group=i3 fonts nvm rbenv
+optional-group=i3 polybar fonts nvm rbenv
 
 XDG_CONFIG_HOME ?= $(HOME)/.config
 
@@ -83,3 +83,9 @@ nvm-clean:
 rbenv:
 	`pwd`/git-clone-pull 'https://github.com/rbenv/rbenv.git' ~/.rbenv
 	`pwd`/git-clone-pull 'https://github.com/rbenv/ruby-build.git' ~/.rbenv/plugins/ruby-build
+
+polybar:
+	ln -sf `pwd`/polybar $(XDG_CONFIG_HOME)/polybar
+
+polybar-clean:
+	rm -Rf $(XDG_CONFIG_HOME)/polybar

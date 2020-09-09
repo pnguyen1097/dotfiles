@@ -1,0 +1,367 @@
+;=====================================================
+;
+;   To learn more about how to configure Polybar
+;   go to https://github.com/jaagr/polybar
+;
+;   The README contains alot of information
+;
+;=====================================================
+
+[colors]
+base03 = #002b36
+base02 = #073642
+base01 = #586e75
+base00 = #657b83
+base0 = #839496
+base1 = #93a1a1
+base2 = #eee8d5
+base3 = #fdf6e3
+
+yellow = #b58900
+orange = #cb4b16
+red = #dc322f
+magenta = #d33682
+violet = #6c71c4
+blue = #268bd2
+cyan = #2aa198
+green = #859900
+
+background = ${colors.base02}
+foreground = ${colors.base0}
+foreground-highlight = ${colors.base2}
+primary = ${colors.blue}
+primary-fade = ${colors.base0}
+secondary = ${colors.orange}
+alert = ${colors.red}
+
+
+[bar/main]
+monitor = eDP1
+width = 100%
+height = 24
+;offset-y = 1%
+;radius = 6.0
+fixed-center = false
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = Sans:pixelsize=11;3
+font-1 = Sans:weight=bold:pixelsize=11;3
+font-2 = Hack:pixelsize=15;3
+font-3 = "Material Design Icons:pixelsize=13;3"
+
+modules-left = logo i3 cava xkeyboard xwindow
+modules-center =
+# modules-right = spotify rightsoftdividertext cava rightsoftdividertext backlight-acpi rightsoftdividertext volume rightsoftdividertext cpu rightsoftdividertext memory rightsoftdividertext temperature rightsoftdividertext battery rightsoftdividertext date rightsoftdividertext powermenu rightsoftdividertext
+modules-right = spotify backlight-acpi volume temperature cpu battery date powermenu
+
+tray-position = right
+tray-padding = 2
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/hdmi]
+inherit = bar/main
+monitor = HDMI1
+
+[module/logo]
+type = custom/text
+content =
+content-foreground = #1794D1
+content-padding = 2
+
+[module/i3]
+type = internal/i3
+inherit = module/leftsoftdivider
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = false
+
+; Only show workspaces on the same output as the bar
+pin-workspaces = true
+
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-font = 2
+; label-focused-background = ${colors.primary}
+label-focused-foreground = ${colors.foreground-highlight}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-background = ${colors.primary-fade}
+label-visible-foreground = ${self.label-focused-foreground}
+label-visible-padding = ${self.label-focused-padding}
+
+; urgent = Workspace with urgency hint set
+label-urgent = %index%
+label-urgent-padding = ${self.label-focused-padding}
+
+
+[module/xwindow]
+type = internal/xwindow
+label =  %title:0:60:...%
+label-padding = 2
+label-foreground = ${colors.foreground-highlight}
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+format = <label-indicator>
+inherit = module/leftdivider
+format-prefix-background=${colors.secondary}
+format-suffix-foreground=${colors.secondary}
+
+label-indicator-padding = 2
+label-indicator-margin = 0
+label-indicator-foreground = ${colors.foreground-highlight}
+label-indicator-background = ${colors.secondary}
+
+[module/spotify]
+type = custom/script
+exec = python -u ~/.config/polybar/scripts/spotify
+tail = true
+label = %output:0:60:...%
+format = <label>
+click-left = playerctl play-pause -p spotify
+click-right = playerctl next -p spotify
+click-middle = i3-msg '[class="Spotify"] focus'
+
+[module/cava]
+type = custom/script
+format-foreground = ${colors.primary}
+format-padding = 2
+exec = python -u ~/.config/polybar/scripts/cava
+tail = true
+label = %output%
+format = <label>
+
+[module/mpd]
+; type = internal/mpd
+; format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+
+; icon-prev = 
+; icon-stop = 
+; icon-play = 
+; icon-pause = 
+; icon-next = 
+
+; label-song-maxlen = 25
+; label-song-ellipsis = true
+
+
+[module/backlight-acpi]
+type = internal/backlight
+format = <label>
+label = %percentage:3:3%%
+card = intel_backlight
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+label =   %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+format-prefix = " "
+label = %percentage_used%%
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected = <label-connected>
+format-connected-prefix = "蠟 "
+
+format-packetloss = <animation-packetloss> <label-connected>
+label-connected = %{T2}%essid%%{T-}
+
+format-disconnected = 郎
+
+animation-packetloss-0 = 嵐
+animation-packetloss-0-foreground = #ffa64c
+animation-packetloss-1 = 襤
+
+; [module/eth]
+; type = internal/network
+; interface = docker0
+; interval = 3.0
+
+; format-connected-prefix-foreground = ${colors.foreground-alt}
+; label-connected = %local_ip%
+
+; format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %Y-%m-%d "
+
+time = %I:%M %P
+time-alt = %I:%M:%S %P
+
+label = %date% %time%
+label-foreground = ${colors.foreground-highlight}
+
+[module/volume]
+type = internal/pulseaudio
+
+format-volume = <ramp-volume> %{A:pavucontrol:}<label-volume>%{A-}
+label-volume = %percentage:03%%
+label-volume-foreground = ${colors.foreground-highlight}
+
+format-muted-prefix = " "
+label-muted = %{A:pavucontrol:}muted%{A-}
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-foreground = ${colors.foreground-highlight}
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = <animation-charging><label-charging>
+label-charging = %percentage:3%%
+
+time-format = %H:%M
+format-discharging = <ramp-capacity> <label-discharging>
+label-discharging = %percentage:3%% %{F#88}%time%%{F-}
+
+format-full-prefix = " "
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = ${colors.alert}
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-framerate = 750
+
+[module/temperature]
+type = internal/temperature
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${colors.alert}
+format-warn-background = ${colors.alert}
+format-warn-foreground = ${colors.foreground-highlight}
+format-warn-padding = 2
+
+label = %temperature-c%
+label-warn = %temperature-c%
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = ${colors.alert}
+label-close = cancel
+label-close-foreground = ${colors.secondary}
+label-separator = |
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+menu-0-2 = log out
+menu-0-2-exec = menu-open-3
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-0 = power off
+menu-2-0-exec = sudo poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+menu-3-0 = log out
+menu-3-0-exec = i3-msg exit
+menu-3-1 = cancel
+menu-3-1-exec = menu-open-0
+
+[module/leftdivider]
+format-prefix =
+format-prefix-foreground=${colors.background}
+format-prefix-background=${colors.primary}
+format-suffix =
+format-suffix-foreground=${colors.primary}
+format-suffix-background=${colors.background}
+
+[module/leftsoftdivider]
+format-prefix = 
+format-suffix = 
+format-prefix-foreground=${colors.base01}
+format-suffix-foreground=${colors.base01}
+format-prefix-padding-right = 2
+format-suffix-padding-left = 2
+
+[module/rightsoftdivider]
+format-prefix = 
+format-suffix = 
+format-prefix-foreground=${colors.base01}
+format-suffix-foreground=${colors.base01}
+format-prefix-padding-right = 2
+format-suffix-padding-left = 2
+
+[module/rightsoftdividertext]
+type=custom/text
+content = 
+content-padding = 2
+content-foreground = ${colors.base01}
+
+
+
+[settings]
+screenchange-reload = true
+; compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+
+; vim:ft=dosini

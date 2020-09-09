@@ -1,0 +1,51 @@
+#!/usr/bin/python -u
+
+import gi
+gi.require_version('Playerctl', '1.0')
+from gi.repository import Playerctl, GLib
+
+player = Playerctl.Player(player_name='spotify')
+meta = ""
+status = ""
+
+
+def output(player, metadata={}):
+    status = player.get_property('status')
+    artist = player.get_artist()
+    title = player.get_title()
+    if status is not None and title:
+        out = '{icon}  {artist} - {title}'.format(
+            icon=icon(status),
+            artist=('Ad' if not artist else artist),
+            title=title)
+        print(out)
+    else:
+        print('')
+
+
+def icon(status):
+    if status == 'Playing':
+        return ''
+    elif status == 'Paused':
+        return ''
+    else:
+        return ''
+
+
+# def on_metadata(player, e):
+#     output(player)
+
+
+def on_exit(player):
+    print('')
+
+
+player.on('metadata', output)
+player.on('exit', on_exit)
+output(player)
+
+try:
+    main = GLib.MainLoop()
+    main.run()
+except KeyboardInterrupt:
+    GLib.MainLoop().quit()

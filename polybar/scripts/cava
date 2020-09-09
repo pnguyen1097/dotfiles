@@ -1,0 +1,62 @@
+#!/usr/bin/python -u
+
+import signal
+import math
+import sys
+from subprocess import Popen, PIPE
+from os import path
+
+number_of_bars = 8
+
+
+def signal_handler(sig, frame):
+    print('Exiting...')
+    sys.exit(0)
+
+
+char_map = [
+    '\u2581',
+    '\u2582',
+    '\u2583',
+    '\u2584',
+    '\u2585',
+    '\u2586',
+    '\u2587',
+    '\u2587',
+]
+
+
+def cubic_smoothstep(x):
+    if x == 0:
+        return 0
+    elif x == 1:
+        return 1
+    else:
+        return math.pow(x, 2) * (3 - 2 * x)
+
+
+def value_to_char(v):
+    max_value = 256
+    levels = len(char_map)
+    norm = v / max_value
+    smoothed = cubic_smoothstep(norm)
+    return char_map[math.floor(smoothed * levels)]
+
+
+signal.signal(signal.SIGINT, signal_handler)
+
+with Popen(
+    ['cava', '-p',
+     path.dirname(path.realpath(__file__)) + '/cava.conf'],
+        stdout=PIPE,
+        bufsize=1) as p:
+    last = 0
+    while True:
+        values = p.stdout.read(number_of_bars)
+        s = sum(values)
+        if s == 0 and last == 0:
+            print('')
+        else:
+            bars = [value_to_char(v) for v in p.stdout.read(number_of_bars)]
+            print('\u200a'.join(bars))
+        last = s
