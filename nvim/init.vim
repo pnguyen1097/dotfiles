@@ -65,8 +65,7 @@ set autoindent                     " New line start at the same level of indenta
 set nosmartindent                  " Let filetype indent handle smart indent
 set completeopt-=preview
 
-set foldenable
-set foldlevelstart=1
+set foldlevelstart=2
 set foldmethod=syntax
 set foldcolumn=1
 set foldtext=ShortFoldText()
