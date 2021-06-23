@@ -10,6 +10,8 @@
 	dc = diff --cached
 	wd = diff --color-words
 	wdc = diff --cached --color-words
+  # Preview changes when merging $2 onto $1
+	merge-preview = "!sh -c \"git merge-tree $(git merge-base $1 $2) $1 $2 | colordiff | less\" -"
 [color]
 	ui = true
 [push]
