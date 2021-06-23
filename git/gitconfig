@@ -24,3 +24,5 @@
 	verbose = true
 [diff]
 	algorithm = histogram
+[url "git@gitlab.com:"]
+	insteadof = https://gitlab.com/
