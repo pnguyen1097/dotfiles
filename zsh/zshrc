@@ -30,3 +30,5 @@ source ~/.zsh/aliases.zsh
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /home/mark/taivara/shuffle-backend/node_modules/tabtab/.completions/slss.zsh ]] && . /home/mark/taivara/shuffle-backend/node_modules/tabtab/.completions/slss.zsh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
