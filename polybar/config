@@ -60,8 +60,9 @@ module-margin-right = 2
 
 font-0 = Sans:pixelsize=11;3
 font-1 = Sans:weight=bold:pixelsize=11;3
-font-2 = Hack:pixelsize=15;3
+font-2 = monospace:pixelsize=15;3
 font-3 = "Material Design Icons:pixelsize=13;3"
+font-4 = "PowerlineSymbols:pixelsize=14;3"
 
 modules-left = logo i3 cava xkeyboard xwindow
 modules-center =
@@ -80,9 +81,9 @@ monitor = HDMI1
 
 [module/logo]
 type = custom/text
-content =
+content =󰣇
 content-foreground = #1794D1
-content-padding = 2
+content-padding = 0
 
 [module/i3]
 type = internal/i3
@@ -171,14 +172,14 @@ format = <label>
 
 [module/backlight-acpi]
 type = internal/backlight
-format = <label>
+format = 󰃞<label>
 label = %percentage:3:3%%
 card = intel_backlight
 
 [module/cpu]
 type = internal/cpu
 interval = 2
-label =   %percentage:2%%
+label = 󰍛%percentage:2%%
 
 [module/memory]
 type = internal/memory
@@ -260,16 +261,16 @@ label-discharging = %percentage:3%% %{F#88}%time%%{F-}
 
 format-full-prefix = " "
 
-ramp-capacity-0 = 
+ramp-capacity-0 = 󰂃
 ramp-capacity-0-foreground = ${colors.alert}
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-1 = 󰁽
+ramp-capacity-2 = 󰁿
+ramp-capacity-3 = 󰁾
+ramp-capacity-4 = 󰂁
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 󱊤
+animation-charging-1 = 󱊥
+animation-charging-2 = 󱊦
 animation-charging-framerate = 750
 
 [module/temperature]
@@ -286,9 +287,9 @@ format-warn-padding = 2
 label = %temperature-c%
 label-warn = %temperature-c%
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = 󱃃
+ramp-1 = 󰔏
+ramp-2 = 󰔐
 
 [module/powermenu]
 type = custom/menu
@@ -297,7 +298,7 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = 󰐥
 label-open-foreground = ${colors.alert}
 label-close = cancel
 label-close-foreground = ${colors.secondary}
