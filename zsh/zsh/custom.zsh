@@ -54,19 +54,21 @@ if type yarn > /dev/null; then
   export PATH="$(yarn global bin):$PATH"
 fi
 
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-eval "$(pyenv virtualenv-init -)"
-
-autojump="/etc/profile.d/autojump.sh";
+if type pyenv > /dev/null; then
+  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+  eval "$(pyenv virtualenv-init -)"
+fi
 
 if [[ -s $autojump ]]; then
   source $autojump
 fi
 
-if [ -x $(which fasd) ]; then
+if type fasd > /dev/null; then
   eval "$(fasd --init auto)"
 fi
 
 # ASDF runtime versions manager
-source $HOME/.asdf/asdf.sh
-source $HOME/.asdf/completions/asdf.bash
+if [[ -s "$HOME/.asdf" ]]; then
+  source $HOME/.asdf/asdf.sh
+  source $HOME/.asdf/completions/asdf.bash
+fi
