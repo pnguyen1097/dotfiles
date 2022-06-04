@@ -51,6 +51,8 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 # Auto convert .... to ../..
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
+zstyle ':prezto:module:prompt' managed 'yes'
+
 #
 # Git
 #

@@ -1,6 +1,6 @@
 # Editor
 # export TERM=xterm-termite
-export EDITOR='vim'
+export EDITOR='nvim'
 export VISUAL='vim'
 export PAGER='less'
 export KEYTIMEOUT=1
@@ -50,10 +50,6 @@ if [[ -s "$HOME/Android/Sdk" ]]; then
   export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/tools:$PATH"
 fi
 
-if type yarn > /dev/null; then
-  export PATH="$(yarn global bin):$PATH"
-fi
-
 if type pyenv > /dev/null; then
   export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   eval "$(pyenv virtualenv-init -)"
@@ -70,5 +66,13 @@ fi
 # ASDF runtime versions manager
 if [[ -s "$HOME/.asdf" ]]; then
   source $HOME/.asdf/asdf.sh
-  source $HOME/.asdf/completions/asdf.bash
+  fpath=(${ASDF_DIR}/completions $fpath)
+  # initialise completions with ZSH's compinit
+  autoload -Uz compinit
+  compinit
 fi
+
+if type yarn > /dev/null; then
+  export PATH="$(yarn global bin):$PATH"
+fi
+
