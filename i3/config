@@ -216,6 +216,9 @@ exec nm-applet --no-startup-id
 exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 exec --no-startup-id ibus-daemon -drx --panel /usr/lib/ibus/ibus-ui-gtk3
+exec --no-startup-id /usr/bin/dunst
+exec --no-startup-id pulseeffects --gapplication-service
+exec --no-startup-id system-config-printer-applet
 
 # Application specific
 
