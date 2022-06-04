@@ -36,11 +36,9 @@ alert = ${colors.red}
 
 
 [bar/main]
-monitor = eDP-1
+monitor = ${env:MONITOR:}
 width = 100%
 height = 24
-;offset-y = 1%
-;radius = 6.0
 fixed-center = false
 
 background = ${colors.background}
@@ -64,20 +62,16 @@ font-2 = monospace:pixelsize=15;3
 font-3 = "Material Design Icons:pixelsize=13;3"
 font-4 = "PowerlineSymbols:pixelsize=14;3"
 
-modules-left = logo i3 cava xkeyboard xwindow
+modules-left = logo i3 xkeyboard xwindow
 modules-center =
 # modules-right = spotify rightsoftdividertext cava rightsoftdividertext backlight-acpi rightsoftdividertext volume rightsoftdividertext cpu rightsoftdividertext memory rightsoftdividertext temperature rightsoftdividertext battery rightsoftdividertext date rightsoftdividertext powermenu rightsoftdividertext
-modules-right = spotify backlight-acpi volume temperature cpu battery date powermenu
+modules-right = backlight-acpi volume temperature cpu battery date powermenu
 
 tray-position = right
 tray-padding = 2
 
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-[bar/hdmi]
-inherit = bar/main
-monitor = HDMI1
 
 [module/logo]
 type = custom/text
@@ -179,7 +173,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-label = 󰍛%percentage:2%%
+label = 󰓅%percentage:2%%
 
 [module/memory]
 type = internal/memory
@@ -259,7 +253,7 @@ time-format = %H:%M
 format-discharging = <ramp-capacity> <label-discharging>
 label-discharging = %percentage:3%% %{F#88}%time%%{F-}
 
-format-full-prefix = " "
+format-full-prefix = "󰂄 "
 
 ramp-capacity-0 = 󰂃
 ramp-capacity-0-foreground = ${colors.alert}
@@ -268,14 +262,14 @@ ramp-capacity-2 = 󰁿
 ramp-capacity-3 = 󰁾
 ramp-capacity-4 = 󰂁
 
-animation-charging-0 = 󱊤
-animation-charging-1 = 󱊥
-animation-charging-2 = 󱊦
+animation-charging-0 = 󰢜
+animation-charging-1 = 󰢝
+animation-charging-2 = 󰂋
 animation-charging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input
+hwmon-path = /sys/devices/platform/thinkpad_hwmon/hwmon/hwmon5/temp1_input
 
 format = <ramp> <label>
 format-warn = <ramp> <label-warn>
