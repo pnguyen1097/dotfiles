@@ -1,7 +1,9 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
   "suggest.echodocSupport": true,
+  "prettier.onlyUseLocalVersion": true,
   "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "tsserver.maxTsServerMemory": 8192,
   "tsserver.log": "verbose",
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
   "solargraph.hover": true,

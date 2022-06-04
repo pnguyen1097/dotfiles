@@ -100,6 +100,11 @@ Plug 'leafgarland/typescript-vim'
 " Elixir
 Plug 'elixir-editors/vim-elixir'
 
+" Plant UML
+" Syntax highlight only.
+" TODO: Look into coc with previewer support
+Plug 'aklt/plantuml-syntax'
+
 " HTML like support
 Plug 'mattn/emmet-vim'
 
