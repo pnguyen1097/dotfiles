@@ -129,5 +129,9 @@ Plug 'rhysd/vim-grammarous'
 " CSV
 Plug 'chrisbra/csv.vim'
 
+" Lilypond
+Plug 'martineausimon/nvim-lilypond-suite'
+Plug 'MunifTanjim/nui.nvim'
+
 call plug#end()
 
