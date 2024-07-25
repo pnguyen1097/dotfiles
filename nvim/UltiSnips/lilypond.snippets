@@ -1,3 +1,16 @@
+snippet addSection "\addSection sectionName ="
+\addSection ${1:section} \with {
+	chords = \chordmode {
+		$2
+	}
+	music = \relative c'' {
+		\sectionMark \default
+		\repeat unfold 8 { r1 }
+		\sectionEnd
+	}
+}
+endsnippet
+
 snippet section "section = \relative "
 ${1:section} = \relative c'' {
 	\mark \default
