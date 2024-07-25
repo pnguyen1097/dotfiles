@@ -13,13 +13,17 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'equalsraf/neovim-gui-shim'
 
 " Airline
+
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
 
 " Color scheme bundles
-Plug 'icymind/NeoSolarized'
-Plug 'chriskempson/base16-vim'
+" Plug 'icymind/NeoSolarized'
+Plug 'ishan9299/nvim-solarized-lua'
+Plug 'RRethy/nvim-base16'
+
+" Plug 'chriskempson/base16-vim'
 
 " Utilities
 Plug 'fidian/hexmode'
@@ -35,8 +39,10 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-endwise'
-Plug 'jiangmiao/auto-pairs'
-Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-unimpaired'
+" Plug 'jiangmiao/auto-pairs'
+" Plug 'easymotion/vim-easymotion'
+Plug 'ggandor/lightspeed.nvim'
 Plug 'takac/vim-hardtime'
 Plug 'SirVer/ultisnips'
 Plug 'junegunn/goyo.vim'
@@ -45,6 +51,8 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'wincent/terminus'
 Plug 'andymass/vim-matchup'
 Plug 'kkoomen/vim-doge'
+Plug 'akinsho/bufferline.nvim', { 'tag': 'v3.*' }
+
 " Plug 'junegunn/vim-peekaboo'
 
 " Text objects
@@ -61,25 +69,27 @@ Plug 'kana/vim-textobj-line'
 "     \ 'do': 'bash install.sh',
 "     \ }
 
-Plug 'Shougo/echodoc.vim'
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-treesitter/nvim-treesitter-context'
+Plug 'RRethy/nvim-treesitter-textsubjects'
+Plug 'JoosepAlviste/nvim-ts-context-commentstring'
+Plug 'windwp/nvim-autopairs'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Testing
 Plug 'epeli/slimux'
 Plug 'janko-m/vim-test'
 
-" IDE features
-" Plug 'w0rp/ale'
-
+" Language Server
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-eslint', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
-Plug 'neoclide/coc-python', {'do': 'yarn install --frozen-lockfile'}
+Plug 'fannheyward/coc-pyright', { 'do': 'yarn install --frozen-lockfile' }
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-prettier', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
@@ -90,11 +100,10 @@ Plug 'antoinemadec/coc-fzf'
 Plug 'vim-ruby/vim-ruby'
 
 " JavasScript support
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'jparise/vim-graphql'
-Plug 'flowtype/vim-flow'
-Plug 'leafgarland/typescript-vim'
+" Plug 'pangloss/vim-javascript'
+" Plug 'maxmellon/vim-jsx-pretty'
+" Plug 'flowtype/vim-flow'
+" Plug 'leafgarland/typescript-vim'
 " Plug 'HerringtonDarkholme/yats.vim'
 
 " Elixir

@@ -66,10 +66,12 @@ set nosmartindent                  " Let filetype indent handle smart indent
 set completeopt-=preview
 
 set foldlevelstart=2
-set foldmethod=syntax
+" set foldmethod=syntax
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldcolumn=1
 set foldtext=ShortFoldText()
-set foldnestmax=2
+set foldnestmax=4
 
 set history=1000                   " Store lots of command lines history
 set wildmode=list:longest,full     " Complete to the longest match on the first tab, then show menu on the second.
@@ -88,7 +90,8 @@ set termguicolors
 set background=dark
 filetype plugin indent on
 syntax on
-colorscheme NeoSolarized
+
+colorscheme solarized
 " colorscheme base16-solarized-dark
 
 highlight clear SignColumn " Remove background
@@ -97,22 +100,22 @@ set hlsearch               " Highlight search terms
 set colorcolumn=80         " Hightlight column 80 for manual wrapping
 
 " Customize base16 colors
-function! s:base16_customize() abort
-  if g:colors_name == "NeoSolarized"
-    return
-  endif
-  call Base16hi("MatchParen", "", g:base16_gui02, "", g:base16_cterm02, "bold")
-  call Base16hi("MatchParenCur", "", "", "", "", "bold")
-  call Base16hi("MatchWord", "", g:base16_gui01, "", g:base16_cterm01, "bold")
-  call Base16hi("Pmenu", g:base16_gui04, )
-endfunction
+" function! s:base16_customize() abort
+"   if g:colors_name == "NeoSolarized"
+"     return
+"   endif
+"   call Base16hi("MatchParen", "", g:base16_gui02, "", g:base16_cterm02, "bold")
+"   call Base16hi("MatchParenCur", "", "", "", "", "bold")
+"   call Base16hi("MatchWord", "", g:base16_gui01, "", g:base16_cterm01, "bold")
+"   call Base16hi("Pmenu", g:base16_gui04, )
+" endfunction
 
-augroup on_change_colorschema
-  autocmd!
-  autocmd ColorScheme * call s:base16_customize()
-augroup END
+" augroup on_change_colorschema
+"   autocmd!
+"   autocmd ColorScheme * call s:base16_customize()
+" augroup END
 
-call s:base16_customize()
+" call s:base16_customize()
 
 " Highlight listchars red
 highlight SpecialKey ctermfg=darkred guifg=darkred ctermbg=NONE guibg=NONE
@@ -121,6 +124,141 @@ highlight SpecialKey ctermfg=darkred guifg=darkred ctermbg=NONE guibg=NONE
 " highlight nonascii guibg=Red ctermbg=1 term=standout
 " au BufReadPost * syntax match nonascii "[^\u0000-\u007F]"
 
+" }}}
+
+
+" Tree sitter {{{
+
+lua<< EOF
+require'nvim-treesitter.configs'.setup {
+  -- A list of parser names, or "all"
+  ensure_installed = {
+    "javascript",
+    "typescript",
+    "ruby",
+    "python",
+    "tsx",
+    "vim",
+    "query",
+    "lua",
+    "graphql",
+  },
+
+  -- Install parsers synchronously (only applied to `ensure_installed`)
+  sync_install = false,
+
+  -- Automatically install missing parsers when entering buffer
+  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
+  auto_install = true,
+
+  -- List of parsers to ignore installing (for "all")
+
+  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
+  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
+
+  highlight = {
+    -- `false` will disable the whole extension
+    enable = true,
+
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+
+  matchup = {
+    enable = true,
+  },
+
+  playground = {
+    enable = true,
+  },
+}
+
+require'treesitter-context'.setup {
+  enable = true,
+}
+
+require("nvim-autopairs").setup {}
+
+require('nvim-treesitter.configs').setup {
+    textsubjects = {
+        enable = true,
+        prev_selection = ',', -- (Optional) keymap to select the previous selection
+        keymaps = {
+            ['.'] = 'textsubjects-smart',
+            [';'] = 'textsubjects-container-outer',
+            ['i;'] = 'textsubjects-container-inner',
+        },
+    },
+}
+EOF
+
+" }}}
+
+
+" Bufferline {{{
+
+lua << EOF
+require("bufferline").setup {
+  highlights = {
+    buffer_selected = {
+      italic = false
+    },
+    numbers_selected = {
+      italic = false
+    },
+    hint_selected = {
+      fg = {
+        attribute = "fg",
+        highlight = "Normal"
+      },
+      italic = false
+    },
+    hint_diagnostic = {
+      fg = {
+        attribute = "fg",
+        highlight = "Normal"
+      },
+    },
+    info_selected = {
+      italic = false,
+    },
+    warning_selected = {
+      italic = false
+    },
+    error_selected = {
+      italic = false
+    },
+    modified = {
+      fg = {
+        attribute = "fg",
+        highlight = "Search"
+      },
+    },
+    modified_selected = {
+      fg = {
+        attribute = "fg",
+        highlight = "Search"
+      },
+    },
+  },
+  options = {
+    separator_style = "thin",
+    diagnostics = "coc",
+    diagnostics_indicator = function(count, level, diagnostics_dict, context)
+    local icons = {
+        ["info"] = "",
+        ["hint"] = "",
+        ["warning"] = "",
+        ["error"] = "",
+      }
+      return icons[level]
+    end
+  },
+}
+EOF
 " }}}
 
 
@@ -165,6 +303,7 @@ let g:python_host_prog = "/usr/bin/python2"
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#tabline#buffer_idx_mode = 1
   let g:airline#extensions#ale#enabled = 1
+  let g:airline#extensions#tabline#enabled = 0
 " }}}
 
 
@@ -172,10 +311,9 @@ let g:python_host_prog = "/usr/bin/python2"
 " let g:matchup_matchparen_deferred = 1
 " }}}
 
-
 " EasyMotion {{{
-map <space> <Plug>(easymotion-prefix)
-map <space>s <Plug>(easymotion-sn)
+" map <space> <Plug>(easymotion-prefix)
+" map <space>s <Plug>(easymotion-sn)
 " }}}
 
 
@@ -272,6 +410,44 @@ let g:projectionist_heuristics = {
       \     "app/*.rb": {
       \       "alternate": "spec/{}_spec.rb"
       \     },
+      \   },
+      \   "package.json": {
+      \     "*.ts": {
+      \       "alternate": [
+      \           "{dirname}/__tests__/{basename}.test.tsx",
+      \           "{dirname}/__tests__/{basename}.test.ts",
+      \           "{dirname}/__tests__/{basename}.ts",
+      \           "{dirname}/{basename}.test.tsx",
+      \           "{dirname}/{basename}.test.ts"
+      \       ]
+      \     },
+      \     "*.tsx": {
+      \       "alternate": [
+      \           "{dirname}/__tests__/{basename}.test.tsx",
+      \           "{dirname}/__tests__/{basename}.test.ts",
+      \           "{dirname}/__tests__/{basename}.ts",
+      \           "{dirname}/{basename}.test.tsx",
+      \           "{dirname}/{basename}.test.ts"
+      \       ]
+      \     },
+      \     "*.js": {
+      \       "alternate": [
+      \           "{dirname}/__tests__/{basename}.test.jsx",
+      \           "{dirname}/__tests__/{basename}.test.js",
+      \           "{dirname}/__tests__/{basename}.js",
+      \           "{dirname}/{basename}.test.jsx",
+      \           "{dirname}/{basename}.test.js"
+      \       ]
+      \     },
+      \     "*.jsx": {
+      \       "alternate": [
+      \           "{dirname}/__tests__/{basename}.test.jsx",
+      \           "{dirname}/__tests__/{basename}.test.js",
+      \           "{dirname}/__tests__/{basename}.js",
+      \           "{dirname}/{basename}.test.jsx",
+      \           "{dirname}/{basename}.test.js"
+      \       ]
+      \     }
       \   }
       \ }
 " }}}
@@ -459,6 +635,16 @@ endif
 let g:grammarous#languagetool_cmd = 'languagetool'
 let g:grammarous#use_vim_spelllang=1
 let g:grammarous#enable_spell_check = 1
+" }}}
+
+" Lilypond {{{
+
+lua<< EOF
+require('nvls').setup {
+  clean_logs = true
+}
+EOF
+
 " }}}
 
 

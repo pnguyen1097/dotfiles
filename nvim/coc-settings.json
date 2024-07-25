@@ -1,15 +1,15 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
-  "suggest.echodocSupport": true,
-  "prettier.onlyUseLocalVersion": true,
-  "eslint.filetypes": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "tsserver.maxTsServerMemory": 8192,
   "tsserver.log": "verbose",
+  "tsserver.useLocalTsdk": true,
   "typescript.format.insertSpaceAfterOpeningAndBeforeClosingTemplateStringBraces": true,
   "solargraph.hover": true,
   "solargraph.definitions": true,
   "solargraph.diagnostics": true,
   "solargraph.symbols": true,
   "solargraph.completion": true,
-  "solargraph.formatting": true
+  "solargraph.formatting": true,
+  "python.formatting.provider": "black",
+  "snippets.ultisnips.pythonPrompt": false,
 }
