@@ -1,5 +1,6 @@
 {
   "coc.preferences.jumpCommand": "vsplit",
+  "prettier.enableDebugLogs": true,
   "tsserver.maxTsServerMemory": 8192,
   "tsserver.log": "verbose",
   "tsserver.useLocalTsdk": true,

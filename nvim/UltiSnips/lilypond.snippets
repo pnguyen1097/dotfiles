@@ -11,6 +11,32 @@ snippet addSection "\addSection sectionName ="
 }
 endsnippet
 
+snippet addChorus "\addSection chorus ="
+\addSection ${1:chorus} \with {
+	chords = \chordmode {
+		$2
+	}
+	music = \relative c'' {
+		\sectionMark "Chorus"
+		\repeat unfold 8 { r1 }
+		\sectionEnd
+	}
+}
+endsnippet
+
+snippet addChorus "\addSection outtro ="
+\addSection ${1:outtro} \with {
+	chords = \chordmode {
+		$2
+	}
+	music = \relative c'' {
+		\sectionMark "Outtro"
+		\repeat unfold 8 { r1 }
+		\sectionEnd
+	}
+}
+endsnippet
+
 snippet section "section = \relative "
 ${1:section} = \relative c'' {
 	\mark \default

@@ -125,6 +125,7 @@ Plug 'vim-voom/VOoM' " Document outline
 " YAML
 " The built-in syntax doesn't handle block scalar well.
 Plug 'stephpy/vim-yaml'
+Plug 'cuducos/yaml.nvim'
 
 " API Blueprint
 Plug 'kylef/apiblueprint.vim'

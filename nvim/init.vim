@@ -142,6 +142,7 @@ require'nvim-treesitter.configs'.setup {
     "query",
     "lua",
     "graphql",
+    "yaml",
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
@@ -626,6 +627,7 @@ if matchstr(local_flow, "^\/\\w") == ''
 endif
 if executable(local_flow)
   let g:flow#flowpath = local_flow
+
 endif
 
 " }}}
