@@ -62,7 +62,7 @@ font-2 = monospace:pixelsize=15;3
 font-3 = "Material Design Icons:pixelsize=13;3"
 font-4 = "PowerlineSymbols:pixelsize=14;3"
 
-modules-left = logo i3 xkeyboard xwindow
+modules-left = logo hdmi i3 xkeyboard xwindow
 modules-center =
 # modules-right = spotify rightsoftdividertext cava rightsoftdividertext backlight-acpi rightsoftdividertext volume rightsoftdividertext cpu rightsoftdividertext memory rightsoftdividertext temperature rightsoftdividertext battery rightsoftdividertext date rightsoftdividertext powermenu rightsoftdividertext
 modules-right = backlight-acpi volume temperature cpu battery date powermenu
@@ -78,6 +78,24 @@ type = custom/text
 content =󰣇
 content-foreground = #1794D1
 content-padding = 0
+
+[module/hdmi]
+type = custom/menu
+
+label-open = 󰇄
+label-close = 󰇄
+; label-close = cancel
+label-close-foreground = ${colors.foreground-highlight}
+
+format-spacing = 1
+label-separator = |
+
+# Find cross machine way to do this
+menu-0-0 = Single
+menu-0-0-exec = xrandr --output "HDMI-1-0" --off
+menu-0-1 = Dual
+menu-0-1-exec = xrandr --output "HDMI-1-0" --right-of "eDP-1" --auto
+
 
 [module/i3]
 type = internal/i3
