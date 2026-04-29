@@ -199,16 +199,20 @@ bindsym $mod+backslash scratchpad show
 # CUSTOM KEYBINDINGS
 
 bindsym $mod+Shift+s exec systemctl suspend
-bindsym $mod+b exec chromium --incognito
+# bindsym $mod+b exec chromium --incognito
+bindsym $mod+b exec org.mozilla.firefox
+bindsym $mod+shift+b exec org.mozilla.firefox --private-window
 bindsym $mod+g exec nvim-qt
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2%
 bindsym $mod+p exec arandr
-bindsym Print exec xfce4-screenshooter
+bindsym Print exec flameshot gui --clipboard --pin --path ~/Pictures/Screenshots
 
 # Startup
-# exec --no-startup-id feh --bg-scale '/home/mark/Pictures/wallpapers/marvin.png'
-exec --no-startup-id feh --bg-scale '/home/mark/projects/wallpaper/out/wallpaper.png'
+exec --no-startup-id feh --bg-scale '/home/mark/Pictures/T6yypye.jpg'
+# exec --no-startup-id feh --bg-scale '/home/mark/projects/wallpaper/out/wallpaper.png'
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec_always --no-startup-id compton -b --config ~/.config/compton.conf
 # exec --no-startup-id /home/mark/.conky/conky-startup.sh
@@ -217,7 +221,8 @@ exec --no-startup-id /usr/lib/geoclue-2.0/demos/agent
 exec --no-startup-id redshift-gtk
 exec --no-startup-id ibus-daemon -drx --panel /usr/lib/ibus/ibus-ui-gtk3
 exec --no-startup-id /usr/bin/dunst
-exec --no-startup-id pulseeffects --gapplication-service
+exec --no-startup-id easyeffects --gapplication-service
+exec --no-startup-id blueberry-tray
 exec --no-startup-id system-config-printer-applet
 
 # Application specific
